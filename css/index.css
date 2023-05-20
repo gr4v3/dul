@@ -1,0 +1,163 @@
+body {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    color: white;
+}
+h1 {
+    text-align: center;
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+h2 {
+    text-align: center;
+    position: relative;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 0.5em;
+}
+.flags {
+    text-align: right;
+}
+.flags a {
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.flags span {
+    margin: 4px;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+h2 img {
+
+    cursor: pointer;
+    transform-origin: center;
+
+}
+h2 img.record {
+    width: 6em;
+    animation-fill-mode: forwards;
+    animation: spin 4s infinite linear;
+}
+h2.muted img.record {
+    animation-play-state: paused;
+}
+h2 .click {
+    position: absolute;
+    width: 2em;
+    top: 2.1em;
+    left: 4em;
+}
+h2:not(.muted) .click {
+    display: none;
+}
+main {
+    width: 61vw;
+}
+main > * {
+    margin: 1em;
+}
+img {
+    width: 100%;
+}
+p {
+    text-indent: 17px;
+    text-align: justify;
+}
+footer {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    font-size: 2em;
+    margin-top: 2em;
+}
+footer a {
+    color: white;
+    text-decoration: none;
+}
+footer a:hover {
+    color: white;
+}
+
+audio {
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+}
+
+@media only screen
+and (max-device-width: 1200px) {
+    main {
+        width: 80vw;
+    }
+}
+
+@media only screen
+and (max-device-width: 1024px) {
+    main {
+        width: 87vw;
+    }
+}
+
+@media only screen
+and (min-device-width: 1024px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+    article {
+        padding: 0.9em;
+    }
+	header img {
+		height: 38em;
+		object-fit: cover;
+	}
+}
+
+@media only screen
+and (max-device-width: 768px) {
+    main {
+        width: 90vw;
+    }
+}
+
+@media only screen
+and (max-device-width: 480px) {
+    main {
+        width: 95vw;
+    }
+    main > header {
+        margin-top: 2em;
+    }
+}
+
+.permission {
+    position: fixed;
+    font-size: 2em;
+    cursor: pointer;
+    width: 1.4em;
+    height: 1em;
+    right: 0;
+}
+.permission ion-icon {
+    position: absolute;
+    top:0;
+    left:0;
+}
+.permission ion-icon[name="volume-mute-outline"] {
+    left: 7px;
+}
+.permission:not(.muted) ion-icon[name="volume-mute-outline"],
+.permission.muted ion-icon[name="volume-off-outline"] {
+    display: none;
+}
+.permission.muted ion-icon[name="volume-mute-outline"],
+.permission:not(.muted) ion-icon[name="volume-off-outline"] {
+    display: block;
+}

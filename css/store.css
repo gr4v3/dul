@@ -1,0 +1,17 @@
+section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+header p {
+    text-align: center;
+}
+article {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+article > div {
+	margin-top: 2rem;
+}

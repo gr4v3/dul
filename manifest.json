@@ -1,0 +1,22 @@
+{
+  "short_name": "DNW",
+  "name": "Dul N'Nouk White",
+  "icons": [
+    {
+      "src": "/img/favicon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/img/favicon.jpg",
+      "type": "image/jpg",
+      "sizes": "403x403"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000",
+  "description": "Dul N'Nouk White"
+}
