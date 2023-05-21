@@ -65,35 +65,7 @@
     <ion-icon name="volume-mute-outline"></ion-icon>
     <ion-icon name="volume-off-outline"></ion-icon>
 </section>
-<script type="text/javascript">
-
-    let triggerSound = function() {
-        return new Promise(function(resolve) {
-            let audio = document.querySelector('audio');
-            if (audio.paused) {
-                audio.play().then(function() {
-                    dataLayer.push({'event': 'select_item'});
-                    resolve();
-                });
-            } else {
-                audio.pause();
-                audio.paused = true;
-                dataLayer.push({'event': 'select_item'});
-                resolve();
-            }
-
-        }).then(function() {
-            document.querySelector('section.permission').classList.toggle('muted');
-        })
-    }
-    document.querySelector( 'section.permission' ).addEventListener( 'click', function() {
-        triggerSound();
-    });
-    document.querySelector( 'h2' ).addEventListener( 'click', function() {
-        triggerSound().then(function() {
-            document.querySelector('h2').classList.toggle('muted');
-        });
-    });
-</script>
+<script src="node_modules/store2/dist/store2.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

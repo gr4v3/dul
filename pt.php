@@ -8,7 +8,7 @@
     <meta name="description" content="Os Dul and Nouk White são uma banda de rock alternativo madeirense com um repertório constituído, maioritariamente, por temas originais que visitam géneros musicais bastante distintos como o rock, o fado, o blues, o pop, o jazz e a música do mundo.">
     <meta name="keywords" content="dul organic orgânico music madeira rock pop portugal">
     <meta name="author" content="dul and nouk white">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/index.css"/>
     <link  rel="stylesheet" href="/node_modules/flag-icons/css/flag-icons.min.css"/>
     <link rel="icon" type="image/jpg" href="img/favicon.jpg" />
@@ -66,36 +66,7 @@
     <ion-icon name="volume-mute-outline"></ion-icon>
     <ion-icon name="volume-off-outline"></ion-icon>
 </section>
-<script type="text/javascript">
-
-    let triggerSound = function() {
-        return new Promise(function(resolve) {
-            let audio = document.querySelector('audio');
-            if (audio.paused) {
-                audio.play().then(function() {
-                    dataLayer.push({'event': 'select_item'});
-                    resolve();
-                });
-            } else {
-                audio.pause();
-                audio.paused = true;
-                dataLayer.push({'event': 'select_item'});
-                resolve();
-            }
-
-        }).then(function() {
-            document.querySelector('section.permission').classList.toggle('muted');
-        })
-    }
-    document.querySelector( 'section.permission' ).addEventListener( 'click', function() {
-        triggerSound();
-    });
-    document.querySelector( 'h2' ).addEventListener( 'click', function() {
-        triggerSound().then(function() {
-            document.querySelector('h2').classList.toggle('muted');
-        });
-    });
-</script>
-
+<script src="node_modules/store2/dist/store2.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

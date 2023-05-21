@@ -15,3 +15,75 @@ article {
 article > div {
 	margin-top: 2rem;
 }
+input {
+    width: 100%;
+}
+input:required:invalid,
+input:focus:invalid,
+select:required:invalid,
+select:focus:invalid {
+    border-color: red;
+}
+input:required:valid,
+select:required:valid {
+    border-color: #ced4da;
+}
+form {
+    width: 100%;
+}
+div:has(.fa-cart-shopping) {
+    --size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 100%;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    color: black;
+}
+div:has(.fa-cart-shopping)[data-qtd]:before {
+    content: attr(data-qtd);
+    position: absolute;
+    background-color: red;
+    border-radius: 100%;
+    --size: 1rem;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    top: -6px;
+    right: -6px;
+    font-size: .7rem;
+}
+dialog {
+    border-radius: 0.5rem;
+    width: 100%;
+    border: none;
+}
+dialog footer {
+    gap: 1rem;
+    margin: 0;
+    justify-content: space-between;
+}
+dialog footer button {
+    width: 100%;
+}
+dialog table {
+    border-spacing: 10px;
+    border-collapse: separate;
+}
+dialog main {
+    width: auto;
+    display: flex;
+    justify-content: center;
+}
+dialog table tfoot td {
+    border-top: 1px solid black;
+    text-align: right;
+}
