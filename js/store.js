@@ -49,7 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
         store.set('cart', cart);
     }
     const cartButton = document.querySelector('div:has(.fa-cart-shopping)');
-    cartButton.dataset.qtd = cart.total;
+    if (cart.total) {
+        cartButton.dataset.qtd = cart.total;
+    }
     document.querySelectorAll('form').forEach(function(element) {
         element.onsubmit = function() {
             if(element.checkValidity()) {
