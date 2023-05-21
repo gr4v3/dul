@@ -63,7 +63,6 @@ div:has(.fa-cart-shopping)[data-qtd]:before {
 }
 dialog {
     border-radius: 0.5rem;
-    width: 100%;
     border: none;
 }
 dialog footer {
