@@ -23,11 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     let UUID = store.get('UUID', false);
     if (UUID === false) {
-        try {
-            UUID = Crypto.randomUUID();
-        } catch (e) {
-            UUID = 'testing123';
-        }
+        UUID = crypto.randomUUID();
         store.set('UUID', UUID);
     }
     let cart = store.get('cart', false);
@@ -78,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         for(let size in cart.items) {
             if (cart.items[size]) {
                 cart.checkout.push({
+                    sku: 'DUL' + String(size).padStart(3, '0') + String(cart.items[size]).padStart(2, '0'),
                     size: size,
                     amount: cart.items[size],
                     unit: 15,
@@ -111,6 +108,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         dialog.close();
                     }
 
+                })
+                dialog.querySelector('button.btn-success').addEventListener('click', function() {
+                    fetch('paypal/index.php', {
+                        method: 'POST',
+                        body: JSON.stringify(cart),
+                        headers: { "Content-Type": "application/json" }
+                    }).then(function(response) {
+                        response.text().then(function(link) {
+                            window.location = link;
+                        })
+                    })
                 })
             })
         })

@@ -1,0 +1,9 @@
+{
+    "require": {
+      "paypal/rest-api-sdk-php": "*",
+      "ext-json": "*"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.2"
+    }
+}

@@ -7,7 +7,6 @@
         {{#checkout}}
             <tr>
                 <td>Tamanho {{size}}</td>
-                <td>{{unit | price}}</td>
                 <td>x{{amount}}</td>
                 <td>{{total | price}}</td>
             </tr>
@@ -15,7 +14,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4">total: {{total | price}}</td>
+                <td colspan="3">total: {{total | price}}</td>
             </tr>
         </tfoot>
     </table>
