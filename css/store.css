@@ -33,7 +33,6 @@ form {
 }
 div:has(.fa-cart-shopping) {
     --size: 2rem;
-    display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -44,6 +43,10 @@ div:has(.fa-cart-shopping) {
     bottom: 1rem;
     right: 1rem;
     color: black;
+    display: none;
+}
+div:has(.fa-cart-shopping)[data-qtd] {
+    display: flex;
 }
 div:has(.fa-cart-shopping)[data-qtd]:before {
     content: attr(data-qtd);
@@ -64,6 +67,7 @@ div:has(.fa-cart-shopping)[data-qtd]:before {
 dialog {
     border-radius: 0.5rem;
     border: none;
+    overflow: visible;
 }
 dialog footer {
     gap: 1rem;
@@ -85,4 +89,17 @@ dialog main {
 dialog table tfoot td {
     border-top: 1px solid black;
     text-align: right;
+}
+.fa-circle-xmark {
+    color: var(--bs-red);
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    font-size: 2rem;
+    background-color: white;
+    border-radius: 100%;
+}
+.fa-circle-xmark,
+div:has(.fa-cart-shopping) {
+    cursor: pointer;
 }

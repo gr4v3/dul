@@ -4,6 +4,6 @@
       "ext-json": "*"
     },
     "require-dev": {
-        "symfony/var-dumper": "^6.2"
+        "symfony/var-dumper": "*"
     }
 }

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     Mustache.Formatters = {
         'uppercase': function (str) {
@@ -21,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return accounting.formatMoney(num, "€", 2, ".", ",")
         }
     };
+    let lang = store.get('lang');
     let UUID = store.get('UUID', false);
     if (UUID === false) {
         UUID = crypto.randomUUID();
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             items: {},
             customer: {
                 uuid: UUID,
-                details: {}
+                lang: store.get('lang')
             },
             notes: false,
             total: 0
@@ -46,47 +46,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     const cartButton = document.querySelector('div:has(.fa-cart-shopping)');
     if (cart.total) {
-        cartButton.dataset.qtd = cart.total;
+        cartButton.dataset.qtd = String(cart.total);
     }
-    document.querySelectorAll('form').forEach(function(element) {
-        element.onsubmit = function() {
-            if(element.checkValidity()) {
-                let data = {
-                    size: element.elements.namedItem('size').value,
-                    qtd: element.elements.namedItem('qtd').value
-                }
-                cart.items[data.size]+= Number(data.qtd);
-                cart.total+= Number(data.qtd);
-                cartButton.dataset.qtd = cart.total;
-                store.set('cart', cart);
-            }
-            return false;
-        }
-    })
     cartButton.addEventListener('click', function() {
         let dialog = document.querySelector('dialog');
-        if (!dialog) {
-            dialog = document.createElement('dialog');
-            document.body.appendChild(dialog);
+        if (dialog) {
+            dialog.parentElement.removeChild(dialog);
         }
-        cart.checkout = [];
-        cart.total = 0;
+        dialog = document.createElement('dialog');
+        document.body.appendChild(dialog);
+        let item = {
+            checkout: [],
+            total: 0
+        }
         for(let size in cart.items) {
             if (cart.items[size]) {
-                cart.checkout.push({
+                item.checkout.push({
                     sku: 'DUL' + String(size).padStart(3, '0') + String(cart.items[size]).padStart(2, '0'),
                     size: size,
                     amount: cart.items[size],
                     unit: 15,
                     total: 15 * cart.items[size],
                 });
-                cart.total+= 15 * cart.items[size];
+                item.total+= 15 * cart.items[size];
             }
         }
-        fetch('views/cart.tmpl').then(function(response) {
+        fetch('views/cart.tmpl?' + new Date().getMilliseconds()).then(function(response) {
             response.text().then(function(template) {
-                dialog.innerHTML = Mustache.render(template, cart);
+                dialog.innerHTML = Mustache.render(template, item);
                 dialog.showModal();
+                dialog.querySelector('.fa-circle-xmark').addEventListener('click', function() {
+                    dialog.parentElement.removeChild(dialog);
+                })
                 dialog.querySelector('button.btn-danger').addEventListener('click', function() {
                     if (confirm('Tem a certeza ?')) {
                         cart =  {
@@ -122,6 +113,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             })
         })
-
+    })
+    fetch('views/store/' + lang + '.tmpl').then(function(response) {
+        response.text().then(function(template) {
+            document.querySelector('main > div').innerHTML = template;
+            document.querySelectorAll('form').forEach(function(element) {
+                element.onsubmit = function() {
+                    if(element.checkValidity()) {
+                        let data = {
+                            size: element.elements.namedItem('size').value,
+                            qtd: Number(element.elements.namedItem('qtd').value)
+                        };
+                        console.log(data);
+                        cart.items[data.size]+= data.qtd;
+                        cart.total = Object.values(cart.items).reduce((a, b) => a + b, 0);
+                        cartButton.dataset.qtd = String(cart.total);
+                        store.set('cart', cart);
+                    }
+                    return false;
+                }
+            })
+        })
     })
 })
