@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             size: element.elements.namedItem('size').value,
                             qtd: Number(element.elements.namedItem('qtd').value)
                         };
+                        console.log(cartUpdated);
                         console.log(data);
                         /*
                         cart.items[data.size]+= data.qtd;
