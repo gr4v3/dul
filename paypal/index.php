@@ -40,8 +40,8 @@ try {
         ->setInvoiceNumber(uniqid('DUL', true));
 
     $redirectUrls = new RedirectUrls();
-    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/success.php')
-        ->setCancelUrl('https://dulandnoukwhite.com/failure.php');
+    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/success.php?lang=' . $post['customer']['lang'])
+        ->setCancelUrl('https://dulandnoukwhite.com/failure.php?lang=' . $post['customer']['lang']);
 
     $payerInfo = new PayerInfo();
     $payerInfo->setPayerId($post['customer']['uuid']);
