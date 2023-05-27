@@ -74,22 +74,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 dialog.querySelector('button.btn-danger').addEventListener('click', function() {
                     if (confirm('Tem a certeza ?')) {
-                        cart =  {
+                        cartButton.attributes.removeNamedItem('data-qtd');
+                        store.set('cart', {
                             items: {},
                             customer: {
                                 uuid: UUID,
-                                details: {}
+                                lang: store.get('lang')
                             },
-                            notes: false,
                             total: 0
-                        };
-                        document.querySelectorAll('select#size option').forEach(function(option) {
-                            if (option.disabled === false) {
-                                cart.items[option.value] = 0;
-                            }
-                        })
-                        cartButton.attributes.removeNamedItem('data-qtd');
-                        store.set('cart', cart);
+                        });
                         dialog.close();
                     }
 
