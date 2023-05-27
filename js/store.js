@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             checkout: [],
             total: 0
         }
+        cart = store.get('cart', false);
         for(let size in cart.items) {
             if (cart.items.hasOwnProperty(size)) {
                 item.checkout.push({
