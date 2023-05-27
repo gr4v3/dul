@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
             checkout: [],
             total: 0
         }
-
         for(let size in cart.items) {
             if (cart.items.hasOwnProperty(size)) {
                 item.checkout.push({
@@ -116,14 +115,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('form').forEach(function(element) {
                 element.onsubmit = function() {
                     if(element.checkValidity()) {
+                        let cartUpdated = store.get('cart', false);
                         let data = {
                             size: element.elements.namedItem('size').value,
                             qtd: Number(element.elements.namedItem('qtd').value)
                         };
+                        console.log(data);
+                        /*
                         cart.items[data.size]+= data.qtd;
                         cart.total = Object.values(cart.items).reduce((a, b) => a + b, 0);
-                        cartButton.dataset.qtd = String(cart.total);
-                        store.set('cart', cart);
+                        cartButton.dataset.qtd = String(cart.total);*/
+                        store.set('cart', cartUpdated);
                     }
                     return false;
                 }
