@@ -35,11 +35,9 @@ try {
         ->setDescription("Payment description")
         ->setInvoiceNumber(uniqid('DUL', true));
 
-
-    $baseUrl = 'https://dev.dulandnoukwhite.com/store.php';
     $redirectUrls = new RedirectUrls();
-    $redirectUrls->setReturnUrl('https://dev.dulandnoukwhite.com/success.php')
-        ->setCancelUrl('https://dev.dulandnoukwhite.com/failure.php');
+    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/success.php')
+        ->setCancelUrl('https://dulandnoukwhite.com/failure.php');
 
     $payerInfo = new PayerInfo();
     $payerInfo->setPayerId($post['customer']['uuid']);

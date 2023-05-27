@@ -38,6 +38,17 @@ $cache = time();
         <h2>Orgânico 2023</h2>
     </header>
     <div></div>
+    <footer>
+        <a  href="https://www.facebook.com/dulandnoukwhite">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <a href="https://www.instagram.com/dulandnoukwhiteband/">
+            <ion-icon name="logo-instagram"></ion-icon>
+        </a>
+        <a href="https://www.youtube.com/c/DulNNoukWhite">
+            <ion-icon name="logo-youtube"></ion-icon>
+        </a>
+    </footer>
 </main>
 <div>
     <i class="fa-solid fa-cart-shopping"></i>
