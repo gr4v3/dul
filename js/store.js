@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 uuid: UUID,
                 lang: store.get('lang')
             },
-            notes: false,
             total: 0
         };
         store.set('cart', cart);
