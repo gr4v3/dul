@@ -120,12 +120,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             size: element.elements.namedItem('size').value,
                             qtd: Number(element.elements.namedItem('qtd').value)
                         };
-                        console.log(cartUpdated);
-                        console.log(data);
-                        /*
-                        cart.items[data.size]+= data.qtd;
-                        cart.total = Object.values(cart.items).reduce((a, b) => a + b, 0);
-                        cartButton.dataset.qtd = String(cart.total);*/
+                        if (!cartUpdated.items.hasOwnProperty(data.size)) {
+                            cartUpdated.items[data.size] = 0;
+                        }
+                        cartUpdated.items[data.size]+= data.qtd;
+                        cartUpdated.total = Object.values(cartUpdated.items).reduce((a, b) => a + b, 0);
+                        cartButton.dataset.qtd = String(cartUpdated.total);
                         store.set('cart', cartUpdated);
                     }
                     return false;
