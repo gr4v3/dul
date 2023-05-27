@@ -29,8 +29,7 @@ try {
     $m = new Mustache_Engine(array('entity_flags' => ENT_QUOTES));
 
     //dump("Executed Payment", "Payment", $payment->getId(), $execution, $result);
-    //echo $m->render(file_get_contents('views/success/' . $payment->payer->payer_info->country_code . '.tmpl'), array('customer' => $name));
-    echo $payment->payer->payer_info->country_code;
+    echo $m->render(file_get_contents('views/success/' . $_GET['lang'] . '.tmpl'), array('customer' => $name));
 } catch (Exception $exception) {
     dump($exception);
 }
