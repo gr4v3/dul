@@ -9,7 +9,7 @@ $cache = time();
 require __DIR__ . '/../vendor/autoload.php';
 
 try {
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ );
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__  . '/../');
     $dotenv->load();
 
     $apiContext = new ApiContext(new OAuthTokenCredential($_ENV['PAYPAL_CLIENT_ID'], $_ENV['PAYPAL_CLIENT_SECRET']));
@@ -29,7 +29,7 @@ try {
     $m = new Mustache_Engine(array('entity_flags' => ENT_QUOTES));
 
     //dump("Executed Payment", "Payment", $payment->getId(), $execution, $result);
-    echo $m->render(file_get_contents('views/success/' . $_GET['lang'] . '.tmpl'), array('customer' => $name));
+    echo $m->render(file_get_contents('../views/success/' . $_GET['lang'] . '.tmpl'), array('customer' => $name));
 } catch (Exception $exception) {
     dump($exception);
 }
