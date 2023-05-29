@@ -2,7 +2,8 @@
     "require": {
       "paypal/rest-api-sdk-php": "*",
       "ext-json": "*",
-        "mustache/mustache": "^2.14"
+        "mustache/mustache": "^2.14",
+        "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
         "symfony/var-dumper": "*"

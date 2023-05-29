@@ -13,6 +13,10 @@ use PayPal\Rest\ApiContext;
 
 require __DIR__ . '/../vendor/autoload.php';
 try {
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
+
     $post = json_decode(file_get_contents('php://input'), true, 512, JSON_THROW_ON_ERROR);
     $itemList = new ItemList();
 
@@ -36,8 +40,8 @@ try {
         ->setInvoiceNumber(uniqid('DUL', true));
 
     $redirectUrls = new RedirectUrls();
-    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/paypal/success.php')
-        ->setCancelUrl('https://dulandnoukwhite.com/paypal/failure.php');
+    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/success.php?lang=' . $post['customer']['lang'])
+        ->setCancelUrl('https://dulandnoukwhite.com/failure.php?lang=' . $post['customer']['lang']);
 
     $payerInfo = new PayerInfo();
     $payerInfo->setPayerId($post['customer']['uuid']);
@@ -53,7 +57,7 @@ try {
         ->setRedirectUrls($redirectUrls)
         ->setTransactions(array($transaction));
 
-    $apiContext = new ApiContext(new OAuthTokenCredential('AXn3JuDHMcJ0rv2Xb67pV71yBQLc4FgSy_gn89IKi7kzsNamO_u7jc3wAaoGO4HgxEJgQ33vK7E8cJ0M', 'EP5P5v4wNSubIu-3FE1ABI_quZZVcxX5zrl8bbQe9QTPuRGasKzhpMAPL06dQVyCb-gnxlYRf43dg9e1'));
+    $apiContext = new ApiContext(new OAuthTokenCredential($_ENV['PAYPAL_CLIENT_ID'], $_ENV['PAYPAL_CLIENT_SECRET']));
     $apiContext->setConfig([
         'mode' => 'sandbox'
     ]);

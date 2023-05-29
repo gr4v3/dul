@@ -35,14 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 lang: store.get('lang'),
                 host: window.location.origin
             },
-            notes: false,
             total: 0
         };
-        document.querySelectorAll('select#size option').forEach(function(option) {
-            if (option.disabled === false) {
-                cart.items[option.value] = 0;
-            }
-        })
         store.set('cart', cart);
     }
     const cartButton = document.querySelector('div:has(.fa-cart-shopping)');
@@ -60,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
             checkout: [],
             total: 0
         }
+        cart = store.get('cart', false);
         for(let size in cart.items) {
-            if (cart.items[size]) {
+            if (cart.items.hasOwnProperty(size)) {
                 item.checkout.push({
                     sku: 'DUL' + String(size).padStart(3, '0') + String(cart.items[size]).padStart(2, '0'),
                     size: size,
@@ -81,23 +76,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 dialog.querySelector('button.btn-danger').addEventListener('click', function() {
                     if (confirm('Tem a certeza ?')) {
-                        cart =  {
+                        cartButton.attributes.removeNamedItem('data-qtd');
+                        store.set('cart', {
                             items: {},
                             customer: {
                                 uuid: UUID,
+                                lang: store.get('lang'),
                                 details: {},
                                 host: window.location.origin
                             },
-                            notes: false,
                             total: 0
-                        };
-                        document.querySelectorAll('select#size option').forEach(function(option) {
-                            if (option.disabled === false) {
-                                cart.items[option.value] = 0;
-                            }
-                        })
-                        cartButton.attributes.removeNamedItem('data-qtd');
-                        store.set('cart', cart);
+                        });
                         dialog.close();
                     }
 
@@ -122,14 +111,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('form').forEach(function(element) {
                 element.onsubmit = function() {
                     if(element.checkValidity()) {
+                        let cartUpdated = store.get('cart', false);
                         let data = {
                             size: element.elements.namedItem('size').value,
                             qtd: Number(element.elements.namedItem('qtd').value)
                         };
-                        cart.items[data.size]+= data.qtd;
-                        cart.total = Object.values(cart.items).reduce((a, b) => a + b, 0);
-                        cartButton.dataset.qtd = String(cart.total);
-                        store.set('cart', cart);
+                        if (!cartUpdated.items.hasOwnProperty(data.size)) {
+                            cartUpdated.items[data.size] = 0;
+                        }
+                        cartUpdated.items[data.size]+= data.qtd;
+                        cartUpdated.total = Object.values(cartUpdated.items).reduce((a, b) => a + b, 0);
+                        cartButton.dataset.qtd = String(cartUpdated.total);
+                        store.set('cart', cartUpdated);
                     }
                     return false;
                 }
