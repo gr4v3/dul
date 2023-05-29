@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
             items: {},
             customer: {
                 uuid: UUID,
-                lang: store.get('lang')
+                lang: store.get('lang'),
+                host: window.location.origin
             },
             notes: false,
             total: 0
@@ -84,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             items: {},
                             customer: {
                                 uuid: UUID,
-                                details: {}
+                                details: {},
+                                host: window.location.origin
                             },
                             notes: false,
                             total: 0
@@ -103,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dialog.querySelector('button.btn-success').addEventListener('click', function() {
                     fetch('paypal/index.php', {
                         method: 'POST',
-                        body: JSON.stringify(cart),
+                        body: JSON.stringify(store.get('cart')),
                         headers: { "Content-Type": "application/json" }
                     }).then(function(response) {
                         response.text().then(function(link) {
@@ -124,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             size: element.elements.namedItem('size').value,
                             qtd: Number(element.elements.namedItem('qtd').value)
                         };
-                        console.log(data);
                         cart.items[data.size]+= data.qtd;
                         cart.total = Object.values(cart.items).reduce((a, b) => a + b, 0);
                         cartButton.dataset.qtd = String(cart.total);

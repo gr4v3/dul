@@ -36,8 +36,8 @@ try {
         ->setInvoiceNumber(uniqid('DUL', true));
 
     $redirectUrls = new RedirectUrls();
-    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/success.php')
-        ->setCancelUrl('https://dulandnoukwhite.com/failure.php');
+    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/paypal/success.php')
+        ->setCancelUrl('https://dulandnoukwhite.com/paypal/failure.php');
 
     $payerInfo = new PayerInfo();
     $payerInfo->setPayerId($post['customer']['uuid']);
