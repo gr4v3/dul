@@ -32,7 +32,7 @@ form {
     width: 100%;
 }
 div:has(.fa-cart-shopping) {
-    --size: 2rem;
+    --size: 3rem;
     justify-content: center;
     align-items: center;
     background-color: white;
@@ -40,7 +40,7 @@ div:has(.fa-cart-shopping) {
     height: var(--size);
     border-radius: 100%;
     position: fixed;
-    bottom: 1rem;
+    bottom: 9rem;
     right: 1rem;
     color: black;
     display: none;
@@ -53,7 +53,7 @@ div:has(.fa-cart-shopping)[data-qtd]:before {
     position: absolute;
     background-color: red;
     border-radius: 100%;
-    --size: 1rem;
+    --size: 1.5rem;
     width: var(--size);
     height: var(--size);
     display: flex;
@@ -62,7 +62,7 @@ div:has(.fa-cart-shopping)[data-qtd]:before {
     color: white;
     top: -6px;
     right: -6px;
-    font-size: .7rem;
+    font-size: 1rem;
 }
 dialog {
     border-radius: 0.5rem;

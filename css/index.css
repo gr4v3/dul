@@ -91,11 +91,43 @@ audio {
     bottom: 0;
     visibility: hidden;
 }
-lottie-player {
+div:has(.fa-store),
+div:has(.fa-house) {
+    --position: 3rem;
     position: fixed;
-    bottom: -3rem;
-    right: -2rem;
+    bottom: var(--position);
+    display: flex;
+    justify-content: center;
+    right: -1rem;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
 }
+div:has(.fa-store) span,
+div:has(.fa-house) span {
+    padding: 1rem 1rem 1rem 2rem;
+}
+div:has(.fa-store) i,
+div:has(.fa-house) i {
+    --size: 56px;
+    width: var(--size);
+    aspect-ratio: 1;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -29px;
+    position: absolute;
+}
+div:has(.fa-store) span,
+div:has(.fa-store) i {
+    background-color: red;
+}
+div:has(.fa-house) span,
+div:has(.fa-house) i {
+    background-color: #0d6efd;
+}
+
 
 @media only screen
 and (max-device-width: 1200px) {
