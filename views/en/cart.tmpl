@@ -1,5 +1,4 @@
 <header>
-    <h1>As tuas T-Shirts</h1>
     <i class="fa-solid fa-circle-xmark"></i>
 </header>
 <main>
@@ -7,7 +6,7 @@
         <tbody>
         {{#checkout}}
             <tr>
-                <td>Tamanho {{size}}</td>
+                <td>Size {{size}}</td>
                 <td>x{{amount}}</td>
                 <td>{{total | price}}</td>
             </tr>
@@ -21,6 +20,6 @@
     </table>
 </main>
 <footer>
-    <button type="button" class="btn btn-danger">Cancelar compra</button>
-    <button type="button" class="btn btn-success">Finalizar compra</button>
+    <button type="button" class="btn btn-danger">Cancel</button>
+    <button type="button" class="btn btn-success">Checkout</button>
 </footer>

@@ -4,13 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
             let audio = document.querySelector('audio');
             if (audio.paused) {
                 audio.play().then(function() {
-                    //dataLayer.push({'event': 'select_item'});
                     resolve();
                 });
             } else {
                 audio.pause();
                 audio.paused = true;
-                //dataLayer.push({'event': 'select_item'});
                 resolve();
             }
 
@@ -28,4 +26,5 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('h2').classList.toggle('muted');
         });
     });
+
 });

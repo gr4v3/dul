@@ -40,8 +40,12 @@ try {
         ->setInvoiceNumber(uniqid('DUL', true));
 
     $redirectUrls = new RedirectUrls();
-    $redirectUrls->setReturnUrl('https://dulandnoukwhite.com/success.php?lang=' . $post['customer']['lang'])
-        ->setCancelUrl('https://dulandnoukwhite.com/failure.php?lang=' . $post['customer']['lang']);
+
+    $lang = $post['customer']['lang'];
+    $host = $post['customer']['host'];
+
+    $redirectUrls->setReturnUrl($host . '/' . $lang . '/store?payment=success')
+        ->setCancelUrl($host . '/' . $lang . '/store?payment=failure');
 
     $payerInfo = new PayerInfo();
     $payerInfo->setPayerId($post['customer']['uuid']);
