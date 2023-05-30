@@ -91,6 +91,11 @@ audio {
     bottom: 0;
     visibility: hidden;
 }
+lottie-player {
+    position: fixed;
+    bottom: -3rem;
+    right: -2rem;
+}
 
 @media only screen
 and (max-device-width: 1200px) {

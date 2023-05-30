@@ -22,8 +22,8 @@ try {
     die($render->render(file_get_contents("views/$template.tmpl"), [
         'lang' => $lang,
         'cache' => time(),
-        'header' => file_get_contents("views/$lang/header.tmpl"),
-        'article' => file_get_contents("views/$lang/$template.tmpl"),
+        'header' => $render->render(file_get_contents("views/$lang/header.tmpl"), ['cache' => time()]),
+        'article' => $render->render(file_get_contents("views/$lang/$template.tmpl"), ['cache' => time()]),
     ]));
 } catch (\RuntimeException $e) {
 
