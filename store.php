@@ -1,6 +1,3 @@
-<?php
-$cache = time();
-?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -39,7 +36,7 @@ $cache = time();
     </header>
     <div></div>
     <footer>
-        <a  href="https://www.facebook.com/dulandnoukwhite">
+        <a href="https://www.facebook.com/dulandnoukwhite">
             <ion-icon name="logo-facebook"></ion-icon>
         </a>
         <a href="https://www.instagram.com/dulandnoukwhiteband/">

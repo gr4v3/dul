@@ -105,28 +105,23 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         })
     })
-    fetch('views/store/' + lang + '.tmpl').then(function(response) {
-        response.text().then(function(template) {
-            document.querySelector('main > div').innerHTML = template;
-            document.querySelectorAll('form').forEach(function(element) {
-                element.onsubmit = function() {
-                    if(element.checkValidity()) {
-                        let cartUpdated = store.get('cart', false);
-                        let data = {
-                            size: element.elements.namedItem('size').value,
-                            qtd: Number(element.elements.namedItem('qtd').value)
-                        };
-                        if (!cartUpdated.items.hasOwnProperty(data.size)) {
-                            cartUpdated.items[data.size] = 0;
-                        }
-                        cartUpdated.items[data.size]+= data.qtd;
-                        cartUpdated.total = Object.values(cartUpdated.items).reduce((a, b) => a + b, 0);
-                        cartButton.dataset.qtd = String(cartUpdated.total);
-                        store.set('cart', cartUpdated);
-                    }
-                    return false;
+    document.querySelectorAll('form').forEach(function(element) {
+        element.onsubmit = function() {
+            if(element.checkValidity()) {
+                let cartUpdated = store.get('cart', false);
+                let data = {
+                    size: element.elements.namedItem('size').value,
+                    qtd: Number(element.elements.namedItem('qtd').value)
+                };
+                if (!cartUpdated.items.hasOwnProperty(data.size)) {
+                    cartUpdated.items[data.size] = 0;
                 }
-            })
-        })
+                cartUpdated.items[data.size]+= data.qtd;
+                cartUpdated.total = Object.values(cartUpdated.items).reduce((a, b) => a + b, 0);
+                cartButton.dataset.qtd = String(cartUpdated.total);
+                store.set('cart', cartUpdated);
+            }
+            return false;
+        }
     })
 })

@@ -144,6 +144,8 @@ and (max-device-width: 480px) {
     width: 1.4em;
     height: 1em;
     right: 0;
+    top: 0;
+    margin: 0;
 }
 .permission ion-icon {
     position: absolute;
