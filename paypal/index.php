@@ -26,12 +26,12 @@ try {
             ->setCurrency('EUR')
             ->setQuantity($checkoutItem['amount'])
             ->setSku($checkoutItem['sku']) // Similar to `item_number` in Classic API
-            ->setPrice((int) 1);
+            ->setPrice((int) $checkoutItem['unit']);
         $itemList->addItem($item);
     }
 
     $amount = new Amount();
-    $amount->setCurrency('EUR')->setTotal((int) 1);
+    $amount->setCurrency('EUR')->setTotal((int) $post['total']);
 
     $transaction = new Transaction();
     $transaction->setAmount($amount)
