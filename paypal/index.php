@@ -26,12 +26,12 @@ try {
             ->setCurrency('EUR')
             ->setQuantity($checkoutItem['amount'])
             ->setSku($checkoutItem['sku']) // Similar to `item_number` in Classic API
-            ->setPrice((int) $checkoutItem['unit'] / 100);
+            ->setPrice((int) 1);
         $itemList->addItem($item);
     }
 
     $amount = new Amount();
-    $amount->setCurrency('EUR')->setTotal((int) $post['total'] / 100);
+    $amount->setCurrency('EUR')->setTotal((int) 1);
 
     $transaction = new Transaction();
     $transaction->setAmount($amount)
@@ -63,10 +63,15 @@ try {
 
     $apiContext = new ApiContext(new OAuthTokenCredential($_ENV['PAYPAL_CLIENT_ID'], $_ENV['PAYPAL_CLIENT_SECRET']));
     $apiContext->setConfig([
-        'mode' => 'sandbox'
+        'mode' => 'live'
     ]);
     $payment->create($apiContext);
+    $payment_content = $payment->toArray();
+    $payment_content['request'] = $post;
+
+    file_put_contents('pending/' . $payment->getId() . '.json', json_encode($payment_content, JSON_THROW_ON_ERROR));
     die($payment->getApprovalLink());
 } catch (JsonException|InvalidArgumentException $e) {
+    dump($e);
 }
 

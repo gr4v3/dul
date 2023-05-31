@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
     store.set('cart', cart);
     let parameters = Object.fromEntries(new URLSearchParams(location.search));
     new Promise(function(resolve) {
-        if (parameters.hasOwnProperty('payment') && parameters.payment === 'success') {
+        if (parameters.hasOwnProperty('payment') && parameters.payment === 'success')
+        {
             store.set('cart', {
                 items: {},
                 customer: {
@@ -60,21 +61,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             dialog = document.createElement('dialog');
             document.body.appendChild(dialog);
-            fetch('/views/' + lang + '/paypal/success.tmpl?' + new Date().getMilliseconds()).then(function(response) {
-                response.text().then(function(template) {
-                    dialog.innerHTML = Mustache.render(template, cart);
-                    dialog.showModal();
-                    dialog.querySelector('.fa-circle-xmark').addEventListener('click', function() {
-                        dialog.parentElement.removeChild(dialog);
-                        window.location = '/';
-                    })
-                    resolve();
-                })
-            });
+
+            fetch('/paypal/finish.php', {
+                method: 'POST',
+                body: JSON.stringify(parameters),
+                headers: { "Content-Type": "application/json" }
+            }).then(function(response) {
+                if (response.status === 200) {
+                    fetch('/views/' + lang + '/paypal/success.tmpl?' + new Date().getMilliseconds()).then(function(response) {
+                        response.text().then(function(template) {
+                            dialog.innerHTML = Mustache.render(template, cart);
+                            dialog.showModal();
+                            dialog.querySelector('.fa-circle-xmark').addEventListener('click', function() {
+                                dialog.parentElement.removeChild(dialog);
+                                window.location = '/';
+                            })
+                            resolve();
+                        })
+                    });
+                }
+            })
+        } else if (parameters.hasOwnProperty('payment') && parameters.payment === 'failure') {
+
         } else {
             resolve();
         }
-    }).then(function() {
+    })
+        .then(function() {
         const cartButton = document.querySelector('div:has(.fa-cart-shopping)');
         if (cart.total) {
             cartButton.dataset.qtd = String(cart.total);
@@ -127,9 +140,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     })
                     dialog.querySelector('button.btn-success').addEventListener('click', function() {
+                        item.customer = cart.customer;
                         fetch('/paypal/index.php', {
                             method: 'POST',
-                            body: JSON.stringify(store.get('cart')),
+                            body: JSON.stringify(item),
                             headers: { "Content-Type": "application/json" }
                         }).then(function(response) {
                             response.text().then(function(link) {
@@ -160,8 +174,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
     })
-
-
-
-
 })
