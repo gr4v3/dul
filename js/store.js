@@ -68,17 +68,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: { "Content-Type": "application/json" }
             }).then(function(response) {
                 if (response.status === 200) {
-                    fetch('/views/' + lang + '/paypal/success.tmpl?' + new Date().getMilliseconds()).then(function(response) {
-                        response.text().then(function(template) {
-                            dialog.innerHTML = Mustache.render(template, cart);
-                            dialog.showModal();
-                            dialog.querySelector('.fa-circle-xmark').addEventListener('click', function() {
-                                dialog.parentElement.removeChild(dialog);
-                                window.location = '/';
+
+                    response.json().then(function(result) {
+                        fetch('/views/' + lang + '/paypal/success.tmpl?' + new Date().getMilliseconds()).then(function(response) {
+                            response.text().then(function(template) {
+                                dialog.innerHTML = Mustache.render(template, result);
+                                dialog.showModal();
+                                dialog.querySelector('.fa-circle-xmark').addEventListener('click', function() {
+                                    dialog.parentElement.removeChild(dialog);
+                                    window.location = '/';
+                                })
+                                resolve();
                             })
-                            resolve();
-                        })
-                    });
+                        });
+                    })
+
+
                 }
             })
         } else if (parameters.hasOwnProperty('payment') && parameters.payment === 'failure') {
