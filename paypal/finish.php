@@ -55,5 +55,8 @@ try {
     $result = Payment::get($paymentId, $apiContext);
     file_put_contents('finish/' . $paymentId . '.json', $result->toJSON());
 
+    header('Content-Type: application/json');
+    die($result->toJSON());
+
 } catch (InvalidEncodingException|InvalidFileException|InvalidPathException|JsonException $e) {
 }
